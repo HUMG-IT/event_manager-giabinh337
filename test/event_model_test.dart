@@ -20,7 +20,7 @@ void main() {
       expect(event.isAllDay, false);
       expect(event.subject, 'Meeting');
       expect(event.notes, 'Discuss project updates');
-      expect(event.recurrenceRule, 'FREQ=DAILY;COUNT=10');
+      expect(event. recurrenceRule, 'FREQ=DAILY;COUNT=10');
     });
 
     test('EventModel copyWith', () {
