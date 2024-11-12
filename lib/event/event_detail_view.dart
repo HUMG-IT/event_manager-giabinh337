@@ -2,28 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'event_model.dart';
 import 'event_service.dart';
-
 ///Màn hình chi tiết sự kiện, cho phép  thêm mới hoặc cập nhật
 class EventDetailView extends StatefulWidget {
   final EventModel event;
   const EventDetailView({super.key, required this.event});
-
   @override
   State<EventDetailView> createState() => _EventDetailViewState();
 }
-
 class _EventDetailViewState extends State<EventDetailView> {
   final subjectController = TextEditingController();
   final NotesController = TextEditingController();
   final eventservice = EventService();
-
   @override
   void initState() {
     super.initState();
     subjectController.text = widget.event.subject;
     NotesController.text = widget.event.notes ?? '';
   }
-
   Future<void> _pickDateTime({required bool isStart}) async {
     //Hiện hộp thoại cho ngày
     final pickedDate = await showDatePicker(
@@ -59,7 +54,6 @@ class _EventDetailViewState extends State<EventDetailView> {
       }
     }
   }
-
   Future<void> _saveEvent() async {
     widget.event.subject = subjectController.text;
     widget.event.notes = NotesController.text;
@@ -67,17 +61,14 @@ class _EventDetailViewState extends State<EventDetailView> {
     if (!mounted) return;
     Navigator.of(context).pop(true); //trở về màn hình trước đó
   }
-
   Future<void> _deleteEvent() async {
     await eventservice.deleteEvent(widget.event);
     if (!mounted) return;
     Navigator.of(context).pop(true); //trở về màn hình trước đó
   }
-
   @override
   Widget build(BuildContext context) {
     final al = AppLocalizations.of(context)!;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -91,7 +82,7 @@ class _EventDetailViewState extends State<EventDetailView> {
             children: [
               TextField(
                 controller: subjectController,
-                decoration: const InputDecoration(labelText: 'ten su kien'),
+                decoration: const InputDecoration(labelText: 'Sự kiện mới'),
               ),
               const SizedBox(height: 16),
               ListTile(
@@ -137,7 +128,7 @@ class _EventDetailViewState extends State<EventDetailView> {
                         onPressed: _deleteEvent,
                         label: const Text('xoa su kien')),
                   FilledButton.icon(
-                      onPressed: _saveEvent, label: const Text('luu su kien'))
+                      onPressed: _saveEvent, label: const Text('Lưu sự kiện'))
                 ],
               )
             ],
